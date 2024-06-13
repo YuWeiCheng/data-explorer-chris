@@ -40,6 +40,9 @@ reshaped_df = reshaped_df.sort_values(by='year', ascending=False)
 #    background = f"background-color:red;" if val else ""
 #    return f" {background}"
 
+def highlight_change(df, threshold, column="Action"):
+    return ['backgrounbd-color: green' if int(i) > threshold for i in df[column].int]
+
 # Display DataFrame
 
 df_editor = st.data_editor(reshaped_df, height=212, use_container_width=True,
