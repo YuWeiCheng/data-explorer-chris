@@ -33,6 +33,12 @@ df_selection = df[df.genre.isin(genres_selection) & df['year'].isin(year_selecti
 reshaped_df = df_selection.pivot_table(index='year', columns='genre', values='gross', aggfunc='sum', fill_value=0)
 reshaped_df = reshaped_df.sort_values(by='year', ascending=False)
 
+## Change the color of the column
+
+#def highlight_changes(val):
+    #color = f"color: black;" if val else "color:lightgray;"
+#    background = f"background-color:red;" if val else ""
+#    return f" {background}"
 
 # Display DataFrame
 
