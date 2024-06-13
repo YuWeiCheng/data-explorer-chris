@@ -32,6 +32,7 @@ year_selection_list = list(np.arange(year_selection[0], year_selection[1]+1))
 df_selection = df[df.genre.isin(genres_selection) & df['year'].isin(year_selection_list)]
 reshaped_df = df_selection.pivot_table(index='year', columns='genre', values='gross', aggfunc='sum', fill_value=0)
 reshaped_df = reshaped_df.sort_values(by='year', ascending=False)
+background_change_df = st.dataframe(reshaped_df.style.apply (highlight_change, threshold=1000, column='Action', axis=1))
 
 ## Change the color of the column
 
@@ -40,7 +41,7 @@ reshaped_df = reshaped_df.sort_values(by='year', ascending=False)
 #    background = f"background-color:red;" if val else ""
 #    return f" {background}"
 
-def highlight_change(df, threshold, column="Action"):
+def highlight_change(df, threshold, column):
     return ['backgrounbd-color: green' if int(i) > threshold else '' for i in df[column].int]
 
 # Display DataFrame
