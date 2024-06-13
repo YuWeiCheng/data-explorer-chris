@@ -46,7 +46,7 @@ background_change_df = st.dataframe(reshaped_df.style.apply (highlight_change, t
 
 # Display DataFrame
 
-df_editor = st.data_editor(background_change_df, height=212, use_container_width=True,
+df_editor = st.data_editor(reshaped_df, height=212, use_container_width=True,
                             column_config={"year": st.column_config.TextColumn("Year")},
                             num_rows="dynamic")
 df_chart = pd.melt(df_editor.reset_index(), id_vars='year', var_name='genre', value_name='gross')
