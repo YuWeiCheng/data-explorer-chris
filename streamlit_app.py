@@ -19,6 +19,16 @@ st.subheader('Which Movie Genre performs ($) best at the box office?')
 df = pd.read_csv('data/movies_genres_summary.csv')
 df.year = df.year.astype('int')
 
+## Change the color of the column
+
+#def highlight_changes(val):
+    #color = f"color: black;" if val else "color:lightgray;"
+#    background = f"background-color:red;" if val else ""
+#    return f" {background}"
+
+def highlight_change(df, threshold, column):
+    return ['backgrounbd-color: green' if int(i) > threshold else '' for i in df[column].int]
+
 # Input widgets
 ## Genres selection
 genres_list = df.genre.unique()
@@ -34,19 +44,9 @@ reshaped_df = df_selection.pivot_table(index='year', columns='genre', values='gr
 reshaped_df = reshaped_df.sort_values(by='year', ascending=False)
 background_change_df = st.dataframe(reshaped_df.style.apply (highlight_change, threshold=1000, column='Action', axis=1))
 
-## Change the color of the column
-
-#def highlight_changes(val):
-    #color = f"color: black;" if val else "color:lightgray;"
-#    background = f"background-color:red;" if val else ""
-#    return f" {background}"
-
-def highlight_change(df, threshold, column):
-    return ['backgrounbd-color: green' if int(i) > threshold else '' for i in df[column].int]
-
 # Display DataFrame
 
-df_editor = st.data_editor(reshaped_df, height=212, use_container_width=True,
+df_editor = st.data_editor(background_change_df, height=212, use_container_width=True,
                             column_config={"year": st.column_config.TextColumn("Year")},
                             num_rows="dynamic")
 df_chart = pd.melt(df_editor.reset_index(), id_vars='year', var_name='genre', value_name='gross')
