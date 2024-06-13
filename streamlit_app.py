@@ -42,7 +42,7 @@ year_selection_list = list(np.arange(year_selection[0], year_selection[1]+1))
 df_selection = df[df.genre.isin(genres_selection) & df['year'].isin(year_selection_list)]
 reshaped_df = df_selection.pivot_table(index='year', columns='genre', values='gross', aggfunc='sum', fill_value=0)
 reshaped_df = reshaped_df.sort_values(by='year', ascending=False)
-#background_change_df = st.dataframe(reshaped_df.style.apply (highlight_change, threshold=1000, column='Action', axis=1))
+background_change_df = st.dataframe(reshaped_df.style.highlight_max(axis=0))
 
 # Display DataFrame
 
