@@ -41,7 +41,7 @@ reshaped_df = reshaped_df.sort_values(by='year', ascending=False)
 #    return f" {background}"
 
 def highlight_change(df, threshold, column="Action"):
-    return ['backgrounbd-color: green' if int(i) > threshold for i in df[column].int]
+    return ['backgrounbd-color: green' if int(i) > threshold else '' for i in df[column].int]
 
 # Display DataFrame
 
