@@ -42,11 +42,11 @@ year_selection_list = list(np.arange(year_selection[0], year_selection[1]+1))
 df_selection = df[df.genre.isin(genres_selection) & df['year'].isin(year_selection_list)]
 reshaped_df = df_selection.pivot_table(index='year', columns='genre', values='gross', aggfunc='sum', fill_value=0)
 reshaped_df = reshaped_df.sort_values(by='year', ascending=False)
-background_change_df = st.dataframe(reshaped_df.style.highlight_max(axis=0))
+background_change_df = st.dataframe(reshaped_df.style.highlight_max(red, axis=0))
 
 # Display DataFrame
 
-df_editor = st.data_editor(background_change_df, height=212, use_container_width=True,
+df_editor = st.data_editor(reshaped_df, height=212, use_container_width=True,
                             column_config={"year": st.column_config.TextColumn("Year")},
                             num_rows="dynamic")
 df_chart = pd.melt(df_editor.reset_index(), id_vars='year', var_name='genre', value_name='gross')
